@@ -1,0 +1,2 @@
+import {LanguageProvider, TranslationConsumer, TransText, AnimatedTransText, getTranslation, updateLanguage } from './LanguageProvider'
+export {LanguageProvider, TranslationConsumer, TransText, AnimatedTransText, getTranslation, updateLanguage }
