@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Animated, Text} from 'react-native';
+import PropTypes  from 'prop-types';
 
 const TranslationContext = React.createContext();
 const TranslationConsumer = TranslationContext.Consumer;
@@ -25,8 +26,7 @@ Provide context for translation
 */
 const LanguageProvider = props => {
 
-    const defaultLanguage = props.defaultLanguage !== undefined ?  props.defaultLanguage : "en-US";
-    let locale = props.language !== undefined ? props.language : defaultLanguage;
+    let locale = props.language !== undefined ? props.language : props.defaultLanguage;
 
     const [language, updateLanguage] = useState(locale);
 
@@ -82,6 +82,34 @@ const getTranslation = (dictionary, values = {}) => {
   // console.log(LanguageContext._currentValue.language)
   let text = translate(language,dictionary,values)
   return text;
+}
+
+LanguageProvider.PropTypes = {
+  language: PropTypes.string.isRequired,
+  defaultLanguage: PropTypes.string
+}
+LanguageProvider.defaultProps = {
+  language: "en-US",
+  defaultLanguage: "en-US"
+}
+
+TransText.PropTypes = {
+  dictionary: PropTypes.object.isRequired,
+  values: PropTypes.string
+}
+TransText.defaultProps = {
+  dictionary: {},
+  values: {}
+}
+
+
+AnimatedTransText.PropTypes = {
+  dictionary: PropTypes.object.isRequired,
+  values: PropTypes.string
+}
+AnimatedTransText.defaultProps = {
+  dictionary: {},
+  values: {}
 }
 
 

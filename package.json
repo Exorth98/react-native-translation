@@ -1,18 +1,17 @@
 {
   "name": "react-native-translation",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "A react native module to easily provide traduction to apps.",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "react-native"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Exorth98/react-native-translate.git"
-  },
-  "dependencies": {
-    "react" : "@latest",
-    "react-native" : "@latest"
   },
   "keywords": [
     "react",
@@ -23,6 +22,17 @@
   ],
   "author": "Caillieux Nicolas",
   "license": "MIT",
+  "dependencies": {
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.55.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-native": ">=0.60.0"
+  },
   "bugs": {
     "url": "https://github.com/Exorth98/react-native-translate/issues"
   },
