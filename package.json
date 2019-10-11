@@ -7,7 +7,12 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupTestFrameworkScriptFile": "jest-enzyme",
+    "testEnvironment": "enzyme",
+    "testEnvironmentOptions": {
+      "enzymeAdapter": "react16"
+    }
   },
   "repository": {
     "type": "git",
@@ -23,11 +28,19 @@
   "author": "Caillieux Nicolas",
   "license": "MIT",
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "react-native": "^0.61.2"
   },
   "devDependencies": {
+    "babel-jest": "^24.9.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.0",
     "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.55.0"
+    "jest-environment-enzyme": "^7.1.1",
+    "jest-enzyme": "^7.1.1",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   },
   "peerDependencies": {
     "react": ">=16.0.0",
