@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Animated, Text} from 'react-native';
-import PropTypes  from 'prop-types';
+import propTypes  from 'prop-types';
 
 const TranslationContext = React.createContext();
 const TranslationConsumer = TranslationContext.Consumer;
@@ -84,18 +84,18 @@ const getTranslation = (dictionary, values = {}) => {
   return text;
 }
 
-LanguageProvider.PropTypes = {
-  language: PropTypes.string.isRequired,
-  defaultLanguage: PropTypes.string
+LanguageProvider.propTypes = {
+  language: propTypes.string.isRequired,
+  defaultLanguage: propTypes.string
 }
 LanguageProvider.defaultProps = {
   language: "en-US",
   defaultLanguage: "en-US"
 }
 
-TransText.PropTypes = {
-  dictionary: PropTypes.object.isRequired,
-  values: PropTypes.string
+TransText.propTypes = {
+  dictionary: propTypes.object.isRequired,
+  values: propTypes.object
 }
 TransText.defaultProps = {
   dictionary: {},
@@ -103,9 +103,9 @@ TransText.defaultProps = {
 }
 
 
-AnimatedTransText.PropTypes = {
-  dictionary: PropTypes.object.isRequired,
-  values: PropTypes.string
+AnimatedTransText.propTypes = {
+  dictionary: propTypes.object.isRequired,
+  values: propTypes.object
 }
 AnimatedTransText.defaultProps = {
   dictionary: {},
