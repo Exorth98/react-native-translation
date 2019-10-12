@@ -5,14 +5,18 @@ import propTypes  from 'prop-types';
 const TranslationContext = React.createContext();
 const TranslationConsumer = TranslationContext.Consumer;
 
+let defaultLanguage = "";
 /*
 Use the provided dictionary and values
 to generate the transleted text
 */
-translate = (language, dictionary, values) =>{
-  // TODO : Improve checks
-  if (dictionary == undefined) return "no dictionnary"
-  if (dictionary[language] == undefined) return "unknown dictionnary"
+translate = (language, defaultLanguage, dictionary, values) =>{
+  // TODO : Improve errors checking
+  if (dictionary == undefined) return "Error"
+  if (dictionary[language] == undefined){
+    language = defaultLanguage;
+    if(dictionary[language] == undefined) return "Error"
+  }
   let text = dictionary[language]
   Object.keys(values).forEach(key => {
     text = text.replace(`{${key}}`,values[key])
@@ -26,12 +30,13 @@ Provide context for translation
 */
 const LanguageProvider = props => {
 
-    let locale = props.language !== undefined ? props.language : props.defaultLanguage;
+    defaultLanguage = props.defaultLanguage;
+    let locale = props.language !== undefined ? props.language : defaultLanguage;
 
     const [language, updateLanguage] = useState(locale);
 
     return (
-      <TranslationContext.Provider value={{language,updateLanguage}}>
+      <TranslationContext.Provider value={{language, defaultLanguage, updateLanguage}}>
         {props.children}
       </TranslationContext.Provider>
     );
@@ -46,8 +51,8 @@ const TransText = props => {
   let values = props.values != undefined ? props.values : {}
   return (
     <TranslationConsumer>
-      {({ language }) => {
-        let text = translate(language,props.dictionary,values)
+      {({ language, defaultLanguage }) => {
+        let text = translate(language, defaultLanguage ,props.dictionary,values)
         return (<Text {...props}>{text}</Text>)
       }}
     </TranslationConsumer>
@@ -80,7 +85,7 @@ const getTranslation = (dictionary, values = {}) => {
   let language = contextValue != undefined ? contextValue.language : "en-US"
   //let language = "en-US"
   // console.log(LanguageContext._currentValue.language)
-  let text = translate(language,dictionary,values)
+  let text = translate(language, defaultLanguage, dictionary,values)
   return text;
 }
 
