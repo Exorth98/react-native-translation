@@ -1,9 +1,10 @@
-import {View, Text} from 'react-native'
+import { Text, Button } from 'react-native'
 import React from 'react';
 
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
+import {act} from 'react-dom/test-utils';
 
-import {LanguageProvider, TransText} from '../src/LanguageProvider';
+import { LanguageProvider, TranslationConsumer, TransText } from '../src/LanguageProvider';
 
 // Pre-defined testing props
 const name = "Joe"
@@ -28,9 +29,7 @@ describe('LanguageProvider normal use', () => {
   it('Rendering with provided langu dic', () => {
     const wrapper = mount(
       <LanguageProvider language={"fr-FR"}>
-        <View>
             <TransText dictionary = {simpleDic}/>
-        </View>
       </LanguageProvider>
     )
     expect(wrapper.find(TransText).children().find(Text).text()).toContain("Salut !");
@@ -45,9 +44,7 @@ describe('LanguageProvider normal use', () => {
   it('Rendering with provided langu dic and values', () => {
     const wrapper = mount(
       <LanguageProvider language={"en-US"}>
-        <View>
             <TransText dictionary = {varDic} values = {{"name":name}}/>
-        </View>
       </LanguageProvider>
     )
     expect(wrapper.find(TransText).children().find(Text).text()).toContain("Hello Joe !");
@@ -58,13 +55,11 @@ describe('LanguageProvider normal use', () => {
 * Providing wrong language but good fallback Language
 * using transtex providing dictionary no values
 */
-describe('Providing wrong language but good fallback Language', () => {
-  it('wrong language and no/wrong fallback language', () => {
+describe('LanguageProvider normal use', () => {
+  it('Providing wrong language but good fallback Language', () => {
     const wrapper = mount(
       <LanguageProvider language={"Ee-US"} defaultLanguage={"fr-FR"}>
-        <View>
             <TransText dictionary = {simpleDic}/>
-        </View>
       </LanguageProvider>
     )
     expect(wrapper.find(TransText).children().find(Text).text()).toContain("Salut !");
@@ -79,9 +74,7 @@ describe('LanguageProvider normal use', () => {
   it('wrong language and no/wrong fallback language', () => {
     const wrapper = mount(
       <LanguageProvider language={"Ee-US"}>
-        <View>
             <TransText dictionary = {simpleDic}/>
-        </View>
       </LanguageProvider>
     )
     expect(wrapper.find(TransText).children().find(Text).text()).toContain("Hello !");
@@ -92,16 +85,41 @@ describe('LanguageProvider normal use', () => {
 * Providing wrong dictionary (language not found)
 * using transtex providing dictionary no values
 */
-describe('wrong dictionary (language not found)', () => {
-  it('Rendering with provided langu dic and values', () => {
+describe('LanguageProvider normal use', () => {
+  it('wrong dictionary (language not found)', () => {
     const wrapper = mount(
       <LanguageProvider language={"en-US"}>
-        <View>
             <TransText dictionary = {brokenDic}/>
-        </View>
       </LanguageProvider>
     )
     expect(wrapper.find(TransText).children().find(Text).text()).toContain("Error");
+  });
+});
+
+
+/*
+* Testing in-app language change
+* using transtex providing dictionary no values
+*/
+describe('LanguageProvider normal use', () => {
+  it('in-app language change', () => {
+    const wrapper = mount(
+      <LanguageProvider language={"en-US"}>
+
+        <TransText dictionary = {simpleDic}/>
+
+        <TranslationConsumer>
+          {({ updateLanguage }) => {
+            return(<Button title = "Test button" onPress={() => updateLanguage("fr-FR")}/>)
+          }}
+        </TranslationConsumer>
+
+      </LanguageProvider>
+    )
+    act(()=>{
+        wrapper.find(Button).first().props().onPress()
+    })
+    expect(wrapper.find(TransText).children().find(Text).text()).toContain("Salut !");
   });
 });
 
