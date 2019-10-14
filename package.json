@@ -1,6 +1,6 @@
 {
   "name": "react-native-translation",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A react native module to easily provide traduction to apps.",
   "main": "./src/index.js",
   "scripts": {
@@ -8,7 +8,9 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFilesAfterEnv": ["./setup-tests.js"],
+    "setupFilesAfterEnv": [
+      "./setup-tests.js"
+    ],
     "testEnvironment": "enzyme",
     "testEnvironmentOptions": {
       "enzymeAdapter": "react16"
@@ -28,7 +30,7 @@
   "author": "Caillieux Nicolas",
   "license": "MIT",
   "dependencies": {
-    "react-native": "^0.61.2"
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",
@@ -38,9 +40,10 @@
     "jest-environment-enzyme": "^7.1.1",
     "jest-enzyme": "^7.1.1",
     "metro-react-native-babel-preset": "^0.56.0",
-    "prop-types": "^15.7.2",
     "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react-dom": "^16.10.2",
+    "react-native": "^0.61.2",
+    "react-test-renderer": "^16.10.2"
   },
   "peerDependencies": {
     "react": ">=16.0.0",

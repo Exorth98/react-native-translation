@@ -83,8 +83,6 @@ const getTranslation = (dictionary, values = {}) => {
 
   let contextValue = TranslationContext._currentValue
   let language = contextValue != undefined ? contextValue.language : "en-US"
-  //let language = "en-US"
-  // console.log(LanguageContext._currentValue.language)
   let text = translate(language, defaultLanguage, dictionary,values)
   return text;
 }
@@ -119,6 +117,7 @@ AnimatedTransText.defaultProps = {
 
 
 export {
+  TranslationContext,
   LanguageProvider,
   TranslationConsumer,
   TransText,

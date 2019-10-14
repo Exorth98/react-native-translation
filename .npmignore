@@ -1,5 +1,5 @@
-.nyc_output/
-coverage/
+.git/
 node_modules/
-.idea/
-.vscode/
+__tests__/
+.gitignore
+setup-tests.js
