@@ -1,10 +1,10 @@
-import { Text, Button } from 'react-native'
+import { Text, Button, Animated } from 'react-native'
 import React from 'react';
 
 import { mount } from 'enzyme';
 import {act} from 'react-dom/test-utils';
 
-import { LanguageProvider, TranslationConsumer, TransText } from '../src/LanguageProvider';
+import { LanguageProvider, TranslationConsumer, TransText, AnimatedTransText } from '../src/LanguageProvider';
 
 // Pre-defined testing props
 const name = "Joe"
@@ -48,6 +48,21 @@ describe('LanguageProvider normal use', () => {
       </LanguageProvider>
     )
     expect(wrapper.find(TransText).children().find(Text).text()).toContain("Hello Joe !");
+  });
+});
+
+/*
+* Providing language
+* using AnimatedTransText providing dictionary and values
+*/
+describe('LanguageProvider normal use', () => {
+  it('Rendering with provided langu dic and values', () => {
+    const wrapper = mount(
+      <LanguageProvider language={"en-US"}>
+            <AnimatedTransText dictionary = {varDic} values = {{"name":name}}/>
+      </LanguageProvider>
+    )
+    expect(wrapper.find(AnimatedTransText).children().find(Animated.Text).text()).toContain("Hello Joe !");
   });
 });
 

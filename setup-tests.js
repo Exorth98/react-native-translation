@@ -8,6 +8,7 @@ import Enzyme from 'enzyme';
 /**
  * Set up DOM in node.js environment for Enzyme to mount to
  */
+
 const { JSDOM } = require('jsdom');
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
@@ -33,3 +34,4 @@ copyProps(window, global);
  * and inspect the DOM in tests.
  */
 Enzyme.configure({ adapter: new Adapter() });
+jest.mock('react-native', () => require('react-native-mock-render'), {virtual: true})

@@ -4,7 +4,8 @@
   "description": "A react native module to easily provide traduction to apps.",
   "main": "./src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "jest": {
     "preset": "react-native",
@@ -43,6 +44,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-native": "^0.61.2",
+    "react-native-mock-render": "^0.1.5",
     "react-test-renderer": "^16.10.2"
   },
   "peerDependencies": {

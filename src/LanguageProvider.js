@@ -10,7 +10,7 @@ let defaultLanguage = "";
 Use the provided dictionary and values
 to generate the transleted text
 */
-translate = (language, defaultLanguage, dictionary, values) =>{
+const translate = (language, dictionary, values) =>{
   // TODO : Improve errors checking
   if (dictionary == undefined) return "Error"
   if (dictionary[language] == undefined){
@@ -52,7 +52,7 @@ const TransText = props => {
   return (
     <TranslationConsumer>
       {({ language, defaultLanguage }) => {
-        let text = translate(language, defaultLanguage ,props.dictionary,values)
+        let text = translate(language, props.dictionary, values)
         return (<Text {...props}>{text}</Text>)
       }}
     </TranslationConsumer>
@@ -69,7 +69,7 @@ const AnimatedTransText = props => {
   return (
     <TranslationConsumer>
       {({ language }) => {
-        let text = translate(language,props.dictionary,values)
+        let text = translate(language, props.dictionary, values)
         return (<Animated.Text {...props}>{text}</Animated.Text>)
       }}
     </TranslationConsumer>
@@ -83,7 +83,7 @@ const getTranslation = (dictionary, values = {}) => {
 
   let contextValue = TranslationContext._currentValue
   let language = contextValue != undefined ? contextValue.language : "en-US"
-  let text = translate(language, defaultLanguage, dictionary,values)
+  let text = translate(language, dictionary,values)
   return text;
 }
 
