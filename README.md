@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.com/Exorth98/react-native-translation.svg?branch=master)](https://travis-ci.com/Exorth98/react-native-translation)
 
-[![Coverage Status](https://coveralls.io/repos/github/Exorth98/react-native-translation/badge.svg?branch=master)](https://coveralls.io/github/Exorth98/react-native-translation?branch=master)
-
+<a href='https://coveralls.io/github/Exorth98/react-native-translation?branch=master'><img src='https://coveralls.io/repos/github/Exorth98/react-native-translation/badge.svg?branch=master' alt='Coverage Status' /></a>
 
 
 # react-native-translation
