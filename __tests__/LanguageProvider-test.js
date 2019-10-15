@@ -52,6 +52,37 @@ describe('LanguageProvider normal use', () => {
 });
 
 /*
+* Providing no language
+* using TransText providing dictionary and values
+*/
+describe('LanguageProvider normal use', () => {
+  it('Rendering with provided langu dic and values', () => {
+    const wrapper = mount(
+      <LanguageProvider>
+            <AnimatedTransText dictionary = {varDic} values = {{"name":name}}/>
+      </LanguageProvider>
+    )
+    expect(wrapper.find(AnimatedTransText).children().find(Animated.Text).text()).toContain("Hello Joe !");
+  });
+});
+
+
+/*
+* Providing only default language
+* using TransText providing dictionary and values
+*/
+describe('LanguageProvider normal use', () => {
+  it('Rendering with provided langu dic and values', () => {
+    const wrapper = mount(
+      <LanguageProvider defaultLanguage="en-US">
+            <AnimatedTransText dictionary = {varDic} values = {{"name":name}}/>
+      </LanguageProvider>
+    )
+    expect(wrapper.find(AnimatedTransText).children().find(Animated.Text).text()).toContain("Hello Joe !");
+  });
+});
+
+/*
 * Providing language
 * using AnimatedTransText providing dictionary and values
 */
@@ -63,6 +94,21 @@ describe('LanguageProvider normal use', () => {
       </LanguageProvider>
     )
     expect(wrapper.find(AnimatedTransText).children().find(Animated.Text).text()).toContain("Hello Joe !");
+  });
+});
+
+/*
+* Providing language
+* using AnimatedTransText providing dictionary
+*/
+describe('LanguageProvider normal use', () => {
+  it('Rendering with provided langu dic and values', () => {
+    const wrapper = mount(
+      <LanguageProvider language={"en-US"}>
+            <AnimatedTransText dictionary = {simpleDic}/>
+      </LanguageProvider>
+    )
+    expect(wrapper.find(AnimatedTransText).children().find(Animated.Text).text()).toContain("Hello !");
   });
 });
 

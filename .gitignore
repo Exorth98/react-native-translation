@@ -2,3 +2,4 @@
 .vscode/
 lib/
 node_modules
+coverage/

@@ -31,9 +31,7 @@ Provide context for translation
 const LanguageProvider = props => {
 
     defaultLanguage = props.defaultLanguage;
-    let locale = props.language !== undefined ? props.language : defaultLanguage;
-
-    const [language, updateLanguage] = useState(locale);
+    const [language, updateLanguage] = useState(props.language);
 
     return (
       <TranslationContext.Provider value={{language, defaultLanguage, updateLanguage}}>
@@ -47,12 +45,10 @@ TransText component
 Return a regular Text component with translated message thanks to the dictionnary
 */
 const TransText = props => {
-
-  let values = props.values != undefined ? props.values : {}
   return (
     <TranslationConsumer>
-      {({ language, defaultLanguage }) => {
-        let text = translate(language, props.dictionary, values)
+      {({ language }) => {
+        let text = translate(language, props.dictionary, props.values)
         return (<Text {...props}>{text}</Text>)
       }}
     </TranslationConsumer>
@@ -64,12 +60,10 @@ AnimatedTransText component
 Works like Transtext, but can handle the proporties for animated text
 */
 const AnimatedTransText = props => {
-
-  let values = props.values != undefined ? props.values : {}
   return (
     <TranslationConsumer>
       {({ language }) => {
-        let text = translate(language, props.dictionary, values)
+        let text = translate(language, props.dictionary, props.values)
         return (<Animated.Text {...props}>{text}</Animated.Text>)
       }}
     </TranslationConsumer>
@@ -82,9 +76,16 @@ This function is called to get a translation needed outside a Text component in 
 const getTranslation = (dictionary, values = {}) => {
 
   let contextValue = TranslationContext._currentValue
-  let language = contextValue != undefined ? contextValue.language : "en-US"
-  let text = translate(language, dictionary,values)
+  /* OLD CHECK
+  *let language = contextValue != undefined ? contextValue.language : "en-US"
+  *let text = translate(language, dictionary,values)
+  */
+  let text = translate(contextValue.language, dictionary,values)
   return text;
+}
+
+const getTranslationWithLang = (language, dictionary, values = {}) => {
+  return text = translate(language, dictionary,values)
 }
 
 LanguageProvider.propTypes = {
@@ -122,5 +123,6 @@ export {
   TranslationConsumer,
   TransText,
   AnimatedTransText,
-  getTranslation
+  getTranslation,
+  getTranslationWithLang
 }
