@@ -5,7 +5,8 @@
   "main": "./src/index.js",
   "scripts": {
     "test": "jest",
-    "coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "jest": {
     "preset": "react-native",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",
+    "coveralls": "^3.0.7",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.0",
     "jest": "^24.9.0",
