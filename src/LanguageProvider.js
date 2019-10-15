@@ -6,21 +6,63 @@ const TranslationContext = React.createContext();
 const TranslationConsumer = TranslationContext.Consumer;
 
 let defaultLanguage = "";
+let translationObject = null;
+
+
+
+// Search subObject from path
+const getSubObject = (obj, path) => {
+  var paths = path.split('.')
+  current = obj
+  for (i = 0; i < paths.length; i++)
+    if (current[paths[i]] != undefined)current = current[paths[i]]
+    else return undefined
+  return current;
+}
+
 /*
 Use the provided dictionary and values
 to generate the transleted text
 */
 const translate = (language, dictionary, values) =>{
-  // TODO : Improve errors checking
-  if (dictionary == undefined) return "Error"
-  if (dictionary[language] == undefined){
-    language = defaultLanguage;
-    if(dictionary[language] == undefined) return "Error"
+  let text = "Error"
+  if (dictionary == undefined) return text
+  let useObject = translationObject != null
+
+  //Using a unique provided translation object
+  if(useObject){
+    dic = getSubObject(translationObject,dictionary)
+    if (dic != undefined){
+      if (dic[language] == undefined){
+        language = defaultLanguage;
+        dic = getSubObject(translationObject,dictionary)
+        if (dic[language] != undefined ) text = dic[language];
+        else useObject = false;
+      }
+      else text = dic[language]
+    }
+    else{
+      useObject = false;
+    }
+
   }
-  let text = dictionary[language]
-  Object.keys(values).forEach(key => {
-    text = text.replace(`{${key}}`,values[key])
-  });
+  //Providing translation object in dictionnary
+  if(!useObject && typeof dictionary != 'string'){
+    
+    if (dictionary[language] == undefined){
+      language = defaultLanguage;
+      if(dictionary[language] == undefined) return text
+    }
+    text = dictionary[language]
+  }
+
+  // Injecting variables values
+  if(text.includes('{')){
+    Object.keys(values).forEach(key => {
+      text = text.replace(`{${key}}`,values[key])
+    });  
+  }
+
   return text;
 }
 
@@ -31,10 +73,12 @@ Provide context for translation
 const LanguageProvider = props => {
 
     defaultLanguage = props.defaultLanguage;
+    translationObject = props.translations;
+
     const [language, updateLanguage] = useState(props.language);
 
     return (
-      <TranslationContext.Provider value={{language, defaultLanguage, updateLanguage}}>
+      <TranslationContext.Provider value={{language, updateLanguage}}>
         {props.children}
       </TranslationContext.Provider>
     );
@@ -90,15 +134,17 @@ const getTranslationWithLang = (language, dictionary, values = {}) => {
 
 LanguageProvider.propTypes = {
   language: propTypes.string.isRequired,
-  defaultLanguage: propTypes.string
+  defaultLanguage: propTypes.string,
+  translations: propTypes.object
 }
 LanguageProvider.defaultProps = {
   language: "en-US",
-  defaultLanguage: "en-US"
+  defaultLanguage: "en-US",
+  translations: null,
 }
 
 TransText.propTypes = {
-  dictionary: propTypes.object.isRequired,
+  dictionary: propTypes.oneOfType([propTypes.object,propTypes.string]).isRequired,
   values: propTypes.object
 }
 TransText.defaultProps = {
@@ -108,7 +154,7 @@ TransText.defaultProps = {
 
 
 AnimatedTransText.propTypes = {
-  dictionary: propTypes.object.isRequired,
+  dictionary: propTypes.oneOfType([propTypes.object,propTypes.string]).isRequired,
   values: propTypes.object
 }
 AnimatedTransText.defaultProps = {
