@@ -244,6 +244,49 @@ If you have the language you can get a translation with the `getTranslationWithL
 Based on that, you can create auto translated component like `<TransText>` by yourself (for exemple: TransButton, TransInput, or whatever you want).
 
 
+## Components and functions detail
+
+### LanguageProvider component
+
+Prop  | Type | Required | Description | Default value 
+------|------|----------|-------------|--------------
+language  | string | Yes | The selectioned language | defaultLanguage
+defaultLanguage  | string | No | Fallback language | "en-US"
+translations  | object | No | Default dictionaries object | null
+
+> Create an Translation context in the provided language
+
+### TransText component
+
+Prop  | Type | Required | Description | Default value
+------|------|----------|-------------|--------------
+dictionary  | string for searching in the default translations object, or directly an object | Yes | The object or path to object containing translations | null
+values  | object { string : any } | No | Variables to inject in the text | { }
+> It can also take any prop a `<Text>` component can take.
+
+> This tab is also available for `<AnimatedTransText>`
+
+> Renders a `<Text>` with the translated text.
+
+### getTranslation function
+
+Parameter  | Type | Required | Description
+-----------|------|----------|------------
+dictionary  | string for searching in the default translations object, or directly an object | Yes | The object or path to object containing translations
+values  | object { string : any } | No | Variables to inject in the text
+
+> Returns the text translated in the right language.
+
+### getTranslationWithLang function
+
+Parameter  | Type | Required | Description
+-----------|------|----------|------------
+language  | string | Yes | The language for the translation
+dictionary  | string for searching in the default translations object, or directly an object | Yes | The object or path to object containing translations
+values  | object { string : any } | No | Variables to inject in the text
+
+> Returns the text translated in the provided language.
+
 ## Contribution
 Since this project is open-source, pull requests are welcome.
 For major changes, please open an issue first to discuss what you would like to change.
