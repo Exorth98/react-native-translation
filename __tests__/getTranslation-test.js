@@ -68,6 +68,18 @@ class TestClassNormalConsumer extends React.Component {
   }
 }
 
+class TestClassWithLangNoProvider extends React.Component {
+  constructor(props){
+      super(props)
+  }
+  render(){
+      let translatedText = getTranslationWithLang(undefined,translations.dictionary)
+      return(
+          <Button title={translatedText} onPress={()=>{}}/>
+      )
+  }
+}
+
 /*
 * Testing normal use
 */
@@ -94,7 +106,7 @@ describe('GetTranslation normal use', () => {
       </LanguageProvider>
     )
     wrapper.mount();
-    expect(wrapper.find(Button).first().prop('title')).toBe("Error");
+    expect(wrapper.find(Button).first().prop('title')).toBe("Error 1");
   });
 });
 
@@ -141,4 +153,42 @@ describe('GetTranslation normal use', () => {
     wrapper.mount();
     expect(wrapper.find(Button).first().prop('title')).toBe("Salut Joe !");
   });
+});
+
+/*
+* Testing normal use with constant dic base but use of object dictionary
+*/
+describe('GetTranslation normal use', () => {
+  it('Should render using getTranslation for button name normal with base particular case object', () => {
+    const wrapper = mount(
+      <LanguageProvider language = {"fr-FR"} translations={translations}>
+        <TestClassNormal/>
+      </LanguageProvider>
+    )
+    wrapper.mount();
+    expect(wrapper.find(Button).first().prop('title')).toBe("Appuyer ici");  });
+});
+
+/*
+* Testing normal use with no provider
+*/
+describe('GetTranslation normal use', () => {
+  it('Should render default with no provider', () => {
+    const wrapper = mount(
+        <TestClassNormal/>
+    )
+    wrapper.mount();
+    expect(wrapper.find(Button).first().prop('title')).toBe("Press Me");  });
+});
+
+/*
+* Testing withLang via consumer with no provider
+*/
+describe('GetTranslation normal use', () => {
+  it('Should render default with no provider', () => {
+    const wrapper = mount(
+        <TestClassWithLangNoProvider/>
+    )
+    wrapper.mount();
+    expect(wrapper.find(Button).first().prop('title')).toBe("Press Me");  });
 });

@@ -1,6 +1,6 @@
 {
   "name": "react-native-translation",
-  "version": "1.0.11",
+  "version": "1.0.18",
   "description": "A react native module to easily provide traduction to apps.",
   "main": "./src/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Exorth98/react-native-translate.git"
+    "url": "https://github.com/Exorth98/react-native-translation.git"
   },
   "keywords": [
     "react",
@@ -56,5 +56,5 @@
   "bugs": {
     "url": "https://github.com/Exorth98/react-native-translate/issues"
   },
-  "homepage": "https://github.com/Exorth98/react-native-translate#readme"
+  "homepage": "https://github.com/Exorth98/react-native-translation"
 }

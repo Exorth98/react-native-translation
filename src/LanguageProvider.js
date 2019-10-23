@@ -6,9 +6,6 @@ const TranslationContext = React.createContext();
 const TranslationConsumer = TranslationContext.Consumer;
 
 let defaultLanguage = "";
-let translationObject = null;
-
-
 
 // Search subObject from path
 const getSubObject = (obj, path) => {
@@ -24,34 +21,34 @@ const getSubObject = (obj, path) => {
 Use the provided dictionary and values
 to generate the transleted text
 */
-const translate = (language, dictionary, values) =>{
+const translate = (language, translationObject, dictionary, values) =>{
   let text = "Error"
-  if (dictionary == undefined) return text
-  let useObject = translationObject != null
+  if (dictionary == undefined) return (text+" 1")
+  if (translationObject === null) text+=" 5"
 
   //Using a unique provided translation object
-  if(useObject){
+  if(typeof dictionary === 'string' && translationObject !== null){
     dic = getSubObject(translationObject,dictionary)
     if (dic != undefined){
       if (dic[language] == undefined){
         language = defaultLanguage;
         dic = getSubObject(translationObject,dictionary)
         if (dic[language] != undefined ) text = dic[language];
-        else useObject = false;
+        else return (text+" 3")
       }
       else text = dic[language]
     }
     else{
-      useObject = false;
+      return (text+" 2")
     }
 
   }
   //Providing translation object in dictionnary
-  if(!useObject && typeof dictionary != 'string'){
+  else{
     
     if (dictionary[language] == undefined){
       language = defaultLanguage;
-      if(dictionary[language] == undefined) return text
+      if(dictionary[language] == undefined) return (text+" 4")
     }
     text = dictionary[language]
   }
@@ -73,12 +70,12 @@ Provide context for translation
 const LanguageProvider = props => {
 
     defaultLanguage = props.defaultLanguage;
-    translationObject = props.translations;
+    let translationObject = props.translations;
 
     const [language, updateLanguage] = useState(props.language);
 
     return (
-      <TranslationContext.Provider value={{language, updateLanguage}}>
+      <TranslationContext.Provider value={{language, updateLanguage, translationObject}}>
         {props.children}
       </TranslationContext.Provider>
     );
@@ -91,8 +88,8 @@ Return a regular Text component with translated message thanks to the dictionnar
 const TransText = props => {
   return (
     <TranslationConsumer>
-      {({ language }) => {
-        let text = translate(language, props.dictionary, props.values)
+      {({ language, translationObject }) => {
+        let text = translate(language, translationObject, props.dictionary, props.values)
         return (<Text {...props}>{text}</Text>)
       }}
     </TranslationConsumer>
@@ -106,8 +103,8 @@ Works like Transtext, but can handle the proporties for animated text
 const AnimatedTransText = props => {
   return (
     <TranslationConsumer>
-      {({ language }) => {
-        let text = translate(language, props.dictionary, props.values)
+      {({ language, translationObject }) => {
+        let text = translate(language, translationObject, props.dictionary, props.values)
         return (<Animated.Text {...props}>{text}</Animated.Text>)
       }}
     </TranslationConsumer>
@@ -120,16 +117,17 @@ This function is called to get a translation needed outside a Text component in 
 const getTranslation = (dictionary, values = {}) => {
 
   let contextValue = TranslationContext._currentValue
-  /* OLD CHECK
-  *let language = contextValue != undefined ? contextValue.language : "en-US"
-  *let text = translate(language, dictionary,values)
-  */
-  let text = translate(contextValue.language, dictionary,values)
+  let language = contextValue != undefined ? contextValue.language : defaultLanguage
+  let translationObject = contextValue != undefined ? contextValue.translationObject : null
+  let text = translate(language, translationObject, dictionary,values)
+  //let text = translate(contextValue.language, dictionary,values)
   return text;
 }
 
 const getTranslationWithLang = (language, dictionary, values = {}) => {
-  return text = translate(language, dictionary,values)
+  let contextValue = TranslationContext._currentValue
+  let translationObject = contextValue != undefined ? contextValue.translationObject : null
+  return text = translate(language, translationObject, dictionary,values)
 }
 
 LanguageProvider.propTypes = {
