@@ -52,7 +52,6 @@ const translate = (language, translationObject, dictionary, values) =>{
     }
     text = dictionary[language]
   }
-
   // Injecting variables values
   if(text.includes('{')){
     Object.keys(values).forEach(key => {
@@ -61,6 +60,23 @@ const translate = (language, translationObject, dictionary, values) =>{
   }
 
   return text;
+}
+
+
+redirection = (language, dictionary) => {
+  rep = {}
+  if (dictionary !== undefined){
+    if (dictionary[language] !== undefined){
+      rep = dictionary[language]
+    }
+    else{
+      language = defaultLanguage;
+      if(dictionary[language] !== undefined){
+        rep = dictionary[language]
+      }
+    }
+  }
+  return rep
 }
 
 /*
@@ -124,6 +140,15 @@ const getTranslation = (dictionary, values = {}) => {
   return text;
 }
 
+const getRedirection = (dictionary) => {
+
+  let contextValue = TranslationContext._currentValue
+  let language = contextValue != undefined ? contextValue.language : defaultLanguage
+
+  let rep = redirection(language, dictionary)
+  return rep;
+}
+
 const getTranslationWithLang = (language, dictionary, values = {}) => {
   let contextValue = TranslationContext._currentValue
   let translationObject = contextValue != undefined ? contextValue.translationObject : null
@@ -168,5 +193,6 @@ export {
   TransText,
   AnimatedTransText,
   getTranslation,
-  getTranslationWithLang
+  getTranslationWithLang,
+  getRedirection
 }
