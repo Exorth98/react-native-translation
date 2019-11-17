@@ -3,10 +3,10 @@ import {
     LanguageProvider, 
     TranslationConsumer, 
     TransText, 
+    getRedirection,
     AnimatedTransText, 
     getTranslation, 
-    getTranslationWithLang,
-    getRedirection,
+    getTranslationWithLang
 } from './LanguageProvider'
 
 export {
@@ -14,8 +14,8 @@ export {
     LanguageProvider, 
     TranslationConsumer, 
     TransText, 
+    getRedirection,
     AnimatedTransText, 
     getTranslation, 
-    getTranslationWithLang ,
-    getRedirection,
+    getTranslationWithLang
 }

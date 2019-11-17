@@ -193,5 +193,5 @@ export {
   AnimatedTransText,
   getTranslation,
   getTranslationWithLang,
-  getRedirection,
+  getRedirection
 }
