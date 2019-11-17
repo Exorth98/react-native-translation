@@ -63,7 +63,7 @@ const translate = (language, translationObject, dictionary, values) =>{
 }
 
 
-redirection = (language, dictionary) => {
+const redirection = (language, dictionary) => {
   rep = {}
   if (dictionary !== undefined){
     if (dictionary[language] !== undefined){
@@ -140,8 +140,7 @@ const getTranslation = (dictionary, values = {}) => {
   return text;
 }
 
-const getRedirection = (dictionary) => {
-
+const getRedirection = dictionary => {
   let contextValue = TranslationContext._currentValue
   let language = contextValue != undefined ? contextValue.language : defaultLanguage
 
@@ -194,5 +193,5 @@ export {
   AnimatedTransText,
   getTranslation,
   getTranslationWithLang,
-  getRedirection
+  getRedirection,
 }

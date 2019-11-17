@@ -6,7 +6,8 @@ import {
     AnimatedTransText, 
     getTranslation, 
     getTranslationWithLang,
-    getRedirection} from './LanguageProvider'
+    getRedirection,
+} from './LanguageProvider'
 
 export {
     TranslationContext, 
@@ -16,4 +17,5 @@ export {
     AnimatedTransText, 
     getTranslation, 
     getTranslationWithLang ,
-    getRedirection}
+    getRedirection,
+}
