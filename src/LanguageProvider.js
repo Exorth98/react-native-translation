@@ -150,6 +150,10 @@ const getRedirection = dictionary => {
   return rep;
 };
 
+const getRedirectionWithLang = (language,dictionary) => {
+  return redirect(language, dictionary);
+};
+
 const setLanguage = language => {
 
   let contextValue = TranslationContext._currentValue;
@@ -212,5 +216,6 @@ export {
   getTranslation,
   getTranslationWithLang,
   setLanguage,
-  getLanguage
+  getLanguage,
+  getRedirectionWithLang
 };

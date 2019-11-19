@@ -8,7 +8,8 @@ import {
     getTranslation, 
     getTranslationWithLang,
     setLanguage,
-    getLanguage
+    getLanguage,
+    getRedirectionWithLang
 } from './LanguageProvider'
 
 export {
@@ -21,5 +22,6 @@ export {
     getTranslation, 
     getTranslationWithLang,
     setLanguage,
-    getLanguage
+    getLanguage,
+    getRedirectionWithLang
 }

@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 
 import { mount } from 'enzyme';
 
-import { LanguageProvider, getRedirection, TransText } from '../src/index';
+import { LanguageProvider, getRedirection, TransText, getRedirectionWithLang } from '../src/index';
 
 
 
@@ -86,6 +86,18 @@ class TestClassNoContext extends React.Component {
     }
 }
 
+class WithLangtest extends React.Component {
+  constructor(props){
+      super(props)
+      this.state = {
+        bottle : getRedirectionWithLang("fr-FR",containers.normal)[0]
+      }
+  }
+  render(){
+      return(<></>)
+  }
+}
+
 
 /*
 * Testing normal use
@@ -159,3 +171,17 @@ describe('getRedirection normal use', () => {
       expect(wrapper.find(Text).text()).toContain("Bottle");
     });
   });
+
+
+/*
+* Testing with lang
+*/
+describe('getRedirection normal use', () => {
+  it('should get redirection on state', () => {
+    const wrapper = mount(
+        <WithLangtest/>
+    )
+    wrapper.mount();
+    expect(wrapper.state('bottle')).toEqual("Bouteille");
+  });
+});
