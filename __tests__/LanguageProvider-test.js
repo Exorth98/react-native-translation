@@ -4,7 +4,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import {act} from 'react-dom/test-utils';
 
-import { LanguageProvider, TranslationConsumer, TransText, AnimatedTransText } from '../src/LanguageProvider';
+import { LanguageProvider, TranslationConsumer, TransText, AnimatedTransText } from '../src/index';
 
 // Pre-defined testing props
 const name = "Joe"

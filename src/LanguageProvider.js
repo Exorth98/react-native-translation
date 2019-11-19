@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Animated, Text} from 'react-native';
 import propTypes  from 'prop-types';
 
@@ -9,37 +9,37 @@ let defaultLanguage = "";
 
 // Search subObject from path
 const getSubObject = (obj, path) => {
-  var paths = path.split('.')
-  current = obj
+  var paths = path.split('.');
+  current = obj;
   for (i = 0; i < paths.length; i++)
-    if (current[paths[i]] != undefined)current = current[paths[i]]
-    else return undefined
+    if (current[paths[i]] != undefined)current = current[paths[i]];
+    else return undefined;
   return current;
-}
+};
 
 /*
 Use the provided dictionary and values
 to generate the transleted text
 */
 const translate = (language, translationObject, dictionary, values) =>{
-  let text = "Error"
-  if (dictionary == undefined) return (text+" 1")
-  if (translationObject === null) text+=" 5"
+  let text = "Error";
+  if (dictionary == undefined) return (text+" 1");
+  if (translationObject === null) text+=" 5";
 
   //Using a unique provided translation object
   if(typeof dictionary === 'string' && translationObject !== null){
-    dic = getSubObject(translationObject,dictionary)
+    dic = getSubObject(translationObject,dictionary);
     if (dic != undefined){
       if (dic[language] == undefined){
         language = defaultLanguage;
-        dic = getSubObject(translationObject,dictionary)
+        dic = getSubObject(translationObject,dictionary);
         if (dic[language] != undefined ) text = dic[language];
-        else return (text+" 3")
+        else return (text+" 3");
       }
-      else text = dic[language]
+      else text = dic[language];
     }
     else{
-      return (text+" 2")
+      return (text+" 2");
     }
 
   }
@@ -48,36 +48,38 @@ const translate = (language, translationObject, dictionary, values) =>{
     
     if (dictionary[language] == undefined){
       language = defaultLanguage;
-      if(dictionary[language] == undefined) return (text+" 4")
+      if(dictionary[language] == undefined) return (text+" 4");
     }
-    text = dictionary[language]
+    text = dictionary[language];
   }
   // Injecting variables values
   if(text.includes('{')){
     Object.keys(values).forEach(key => {
-      text = text.replace(`{${key}}`,values[key])
+      text = text.replace(`{${key}}`,values[key]);
     });  
   }
 
   return text;
-}
+};
 
-
-const redirection = (language, dictionary) => {
-  rep = {}
+/*
+Use the provided dictionary to return the data in the correct language
+*/
+const redirect = (language, dictionary) => {
+  rep = {};
   if (dictionary !== undefined){
     if (dictionary[language] !== undefined){
-      rep = dictionary[language]
+      rep = dictionary[language];
     }
     else{
       language = defaultLanguage;
       if(dictionary[language] !== undefined){
-        rep = dictionary[language]
+        rep = dictionary[language];
       }
     }
   }
-  return rep
-}
+  return rep;
+};
 
 /*
 Language provider component
@@ -95,7 +97,7 @@ const LanguageProvider = props => {
         {props.children}
       </TranslationContext.Provider>
     );
-}
+};
 
 /*
 TransText component
@@ -132,57 +134,64 @@ This function is called to get a translation needed outside a Text component in 
 */
 const getTranslation = (dictionary, values = {}) => {
 
-  let contextValue = TranslationContext._currentValue
-  let language = contextValue != undefined ? contextValue.language : defaultLanguage
-  let translationObject = contextValue != undefined ? contextValue.translationObject : null
-  let text = translate(language, translationObject, dictionary,values)
+  let contextValue = TranslationContext._currentValue;
+  let language = contextValue != undefined ? contextValue.language : defaultLanguage;
+  let translationObject = contextValue != undefined ? contextValue.translationObject : null;
+  let text = translate(language, translationObject, dictionary,values);
   //let text = translate(contextValue.language, dictionary,values)
   return text;
-}
+};
 
 const getRedirection = dictionary => {
-  let contextValue = TranslationContext._currentValue
-  let language = contextValue != undefined ? contextValue.language : defaultLanguage
+  let contextValue = TranslationContext._currentValue;
+  let language = contextValue != undefined ? contextValue.language : defaultLanguage;
 
-  let rep = redirection(language, dictionary)
+  let rep = redirect(language, dictionary);
   return rep;
-}
+};
+
+const setLanguage = language => {
+
+  let contextValue = TranslationContext._currentValue;
+  let updateFunc = contextValue != undefined ? contextValue.updateLanguage : ()=>{};
+  updateFunc(language);
+};
 
 const getTranslationWithLang = (language, dictionary, values = {}) => {
-  let contextValue = TranslationContext._currentValue
-  let translationObject = contextValue != undefined ? contextValue.translationObject : null
-  return text = translate(language, translationObject, dictionary,values)
-}
+  let contextValue = TranslationContext._currentValue;
+  let translationObject = contextValue != undefined ? contextValue.translationObject : null;
+  return translate(language, translationObject, dictionary,values);
+};
 
 LanguageProvider.propTypes = {
   language: propTypes.string.isRequired,
   defaultLanguage: propTypes.string,
   translations: propTypes.object
-}
+};
 LanguageProvider.defaultProps = {
   language: "en-US",
   defaultLanguage: "en-US",
   translations: null,
-}
+};
 
 TransText.propTypes = {
   dictionary: propTypes.oneOfType([propTypes.object,propTypes.string]).isRequired,
   values: propTypes.object
-}
+};
 TransText.defaultProps = {
   dictionary: {},
   values: {}
-}
+};
 
 
 AnimatedTransText.propTypes = {
   dictionary: propTypes.oneOfType([propTypes.object,propTypes.string]).isRequired,
   values: propTypes.object
-}
+};
 AnimatedTransText.defaultProps = {
   dictionary: {},
   values: {}
-}
+};
 
 
 export {
@@ -190,8 +199,9 @@ export {
   LanguageProvider,
   TranslationConsumer,
   TransText,
+  getRedirection,
   AnimatedTransText,
   getTranslation,
   getTranslationWithLang,
-  getRedirection
-}
+  setLanguage
+};

@@ -1,13 +1,12 @@
 import React from 'react';
-import { Text, Button } from 'react-native'
+import { Text } from 'react-native'
 
 import { mount } from 'enzyme';
 
-import { LanguageProvider, getRedirection, TransText } from '../src/LanguageProvider';
+import { LanguageProvider, getRedirection, TransText } from '../src/index';
 
 
 
-const name = "Joe"
 
 // Raw datas for differents languages
 containers_EN = ["Bottle", "Pack", "Bag", "Box"]

@@ -3,7 +3,7 @@ import { Text, Button } from 'react-native'
 
 import { mount } from 'enzyme';
 
-import { LanguageProvider, TranslationConsumer, getTranslation, getTranslationWithLang } from '../src/LanguageProvider';
+import { LanguageProvider, TranslationConsumer, getTranslation, getTranslationWithLang } from '../src/index';
 
 
 
