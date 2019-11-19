@@ -7,7 +7,8 @@ import {
     AnimatedTransText, 
     getTranslation, 
     getTranslationWithLang,
-    setLanguage
+    setLanguage,
+    getLanguage
 } from './LanguageProvider'
 
 export {
@@ -19,5 +20,6 @@ export {
     AnimatedTransText, 
     getTranslation, 
     getTranslationWithLang,
-    setLanguage
+    setLanguage,
+    getLanguage
 }

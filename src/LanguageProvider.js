@@ -157,6 +157,14 @@ const setLanguage = language => {
   updateFunc(language);
 };
 
+
+const getLanguage = () => {
+
+  let contextValue = TranslationContext._currentValue;
+  let language = contextValue != undefined ? contextValue.language : "en-US";
+  return language;
+};
+
 const getTranslationWithLang = (language, dictionary, values = {}) => {
   let contextValue = TranslationContext._currentValue;
   let translationObject = contextValue != undefined ? contextValue.translationObject : null;
@@ -203,5 +211,6 @@ export {
   AnimatedTransText,
   getTranslation,
   getTranslationWithLang,
-  setLanguage
+  setLanguage,
+  getLanguage
 };

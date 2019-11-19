@@ -61,4 +61,4 @@ describe('setLanguage normal use', () => {
       wrapper.mount();
       expect(wrapper.find(Text).text()).toContain("bottle");
     });
-  });
+});
