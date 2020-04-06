@@ -35,7 +35,7 @@ describe('getLanguage normal use', () => {
     /*
 * Testing without context
 */
-describe('setLanguage normal use', () => {
+describe('setLanguage default use', () => {
     it('Should return default language', () => {
       const wrapper = mount(
           <TestSetEN/>

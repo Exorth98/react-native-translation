@@ -98,7 +98,7 @@ describe('GetTranslation normal use', () => {
 /*
 * Testing wrong dic
 */
-describe('GetTranslation normal use', () => {
+describe('GetTranslation wrong dic', () => {
   it('Should render using getTranslation for button name wrong dic', () => {
     const wrapper = mount(
       <LanguageProvider language = {"fr-FR"}>
@@ -113,7 +113,7 @@ describe('GetTranslation normal use', () => {
 /*
 * Testing no Language
 */
-describe('GetTranslation normal use', () => {
+describe('GetTranslation no Language', () => {
   it('Should render using getTranslation for button name no language', () => {
     const wrapper = mount(
       <LanguageProvider>
@@ -128,7 +128,7 @@ describe('GetTranslation normal use', () => {
 /*
 * Testing with languageConsumer
 */
-describe('GetTranslation normal use', () => {
+describe('GetTranslation with languageConsumer', () => {
   it('Should render using getTranslation for button name with consumer', () => {
     const wrapper = mount(
       <LanguageProvider language = {"fr-FR"}>
@@ -143,7 +143,7 @@ describe('GetTranslation normal use', () => {
 /*
 * Testing normal use with constant dic base
 */
-describe('GetTranslation normal use', () => {
+describe('GetTranslation use with constant dic base', () => {
   it('Should render using getTranslation for button name normal', () => {
     const wrapper = mount(
       <LanguageProvider language = {"fr-FR"} translations={translations}>
@@ -158,7 +158,7 @@ describe('GetTranslation normal use', () => {
 /*
 * Testing normal use with constant dic base but use of object dictionary
 */
-describe('GetTranslation normal use', () => {
+describe('GetTranslation with constant dic base but use of object dictionary', () => {
   it('Should render using getTranslation for button name normal with base particular case object', () => {
     const wrapper = mount(
       <LanguageProvider language = {"fr-FR"} translations={translations}>
@@ -172,7 +172,7 @@ describe('GetTranslation normal use', () => {
 /*
 * Testing normal use with no provider
 */
-describe('GetTranslation normal use', () => {
+describe('GetTranslation with no provider', () => {
   it('Should render default with no provider', () => {
     const wrapper = mount(
         <TestClassNormal/>
@@ -184,7 +184,7 @@ describe('GetTranslation normal use', () => {
 /*
 * Testing withLang via consumer with no provider
 */
-describe('GetTranslation normal use', () => {
+describe('GetTranslation with Lang via consumer with no provider', () => {
   it('Should render default with no provider', () => {
     const wrapper = mount(
         <TestClassWithLangNoProvider/>

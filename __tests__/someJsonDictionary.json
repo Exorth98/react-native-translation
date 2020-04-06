@@ -1,0 +1,16 @@
+{
+    "namedMessage" : {
+      "en-US" : "Hello {name} !",
+      "fr-FR" : "Salut {name} !"
+    },
+    "otherMessages" : {
+      "unnamedMessage" : {
+        "en-US" : "Hello !",
+        "fr-FR" : "Salut !"
+      },
+      "unnamedBrokenMessage" : {
+        "es-ES" : "Hola !",
+        "fr-FR" : "Salut !"
+      }
+    }
+}

@@ -6,12 +6,19 @@
 ## Overview
 This package provides you an easy and flexible solution for implementing a translation system in react-native apps, using the React Context API.
 
-
-Comming Features :
-- Handling the device locale automaticaly.
-- Possibility to use one translation object for each language.
-- JSON format support for translation files.
-- ...
+Features : 
+- [x] Text translation: `<Text>`
+- [x] Other text translation: Button title, Input placeholders, etc.
+- [x] Possibility on passing variables in translations
+- [x] In-app language change: re-render texts on language 
+- [x] Data translation: Possibility or re-orient the raw data files importation.
+change
+- [x] Possibility to use only one translation file (one import)
+- [x] Possibility to specify a specific translation object for some cases.     
+- [x] JSON format support for translations.   
+- [ ] Handling the device locale automaticaly.
+- [ ] Possibility to use one translation object for each language.
+- [ ] ...
 
 ## Installation
 
@@ -74,7 +81,7 @@ export default class App extends React.Component {
 ### 3 - Translating Text components
 
 This package provides a new ```<Text>``` component named ```<TransText>```.
-When providing a `dictonary` prop to this component, it will automaticaly render the text in the right language.
+When providing a `dictionary` prop to this component, it will automaticaly render the text in the right language.
 
 The dictionary must be an object with locale codes (string) in keys and the corresponding text in value.
 
@@ -97,7 +104,7 @@ const message = {
 ```
 > If you want to translate an `<Animated.Text>` you can use `<AnimatedTransText>` the same way.
 
-> The dictionary can be imported from a seperate file with a general tranlation object.
+> The dictionary can be imported from a seperate file with a general translation object.
 
 ### 4 - Translating other texts
 
@@ -106,6 +113,8 @@ Most of the time you will also need to translate texts outside of ```<Text>``` c
 The ```getTranslation()``` function is the solution for that.
 
 You can call this function wherever you want inside the provider with a dictionary as parameter (just like for ```<TransText>```), and it will return a string containing the text in the right language.
+
+> **!! The getTranslation function must use inside the component class/function to access the context**
 
 ```javascript
 // Import function
@@ -119,6 +128,7 @@ const message = {
   "fr-FR" : "Appuyer ici",
 }
 
+// !!! Inside the component class/function
 const buttonTitle = getTranslation(message)
 ...
 
@@ -235,6 +245,69 @@ export default class MyView extends React.Component {
 }
 ```
 
+### 4 - Translate raw data with getRedirection()
+
+You may use some raw data in your app, that you will need to translate.
+
+#### 1 - Your data
+
+For exemple your app use food vocabulary, you have your english data in a `enFood.json` file : 
+```JSON
+{
+  "vegetables" : ["Carrot","Avocado"],
+  "fruits" : ["Apple","Orange"],
+  "meat" : ["Beef", "Chicken", "Pork"]
+}
+```
+> You can create other files for other languages or put all in one file
+
+And for the example we have the French translation in a `frFood.json` file :
+```JSON
+{
+  "vegetables" : ["Carrote","Avocat"],
+  "fruits" : ["Pomme","Orange"],
+  "meat" : ["Boeuf", "Poulet", "Porc"]
+}
+```
+
+#### 2 - Your redirector
+
+You then need to create a dictionary that will redirect the datas:
+
+`foodRedirector.js` :
+```javascript
+const enFood = require('/pathToFile/enFood.json')
+const frFood = require('/pathToFile/frFood.json')
+
+const foodRedirector = {
+  "en-US" : enFood,
+  "fr-FR" : frFood
+}
+
+export default foodRedirector
+```
+
+#### 3 - Get your translated data
+
+Now it is all set !
+
+You can now use the `getRedirection()`:
+> **!! The getRedirection function must use inside the component class/function to access the context**
+
+```javascript
+// Import component
+import {getRedirection} from 'react-native-translation'
+import foodRedirector from '/pathToFile/foodRedirector'
+...
+
+// Initialize data
+// !! Inside the component class/function
+const food = getRedirection(foodRedirector)
+...
+```
+
+The food object is automaticaly translated
+
 ### 5 - TranslationConsumer : Customize whatever you want
 
 In the previous section, I showed you an exemple of the `<TranslationConsumer>` use.<br>
@@ -246,7 +319,9 @@ Based on that, you can create auto translated component like `<TransText>` by yo
 
 ## Components and functions detail
 
-### LanguageProvider component
+### < LanguageProvider > component
+
+> Create an Translation context in the provided language
 
 Prop  | Type | Required | Description | Default value 
 ------|------|----------|-------------|--------------
@@ -254,30 +329,37 @@ language  | string | Yes | The selectioned language | defaultLanguage
 defaultLanguage  | string | No | Fallback language | "en-US"
 translations  | object | No | Default dictionaries object | null
 
-> Create an Translation context in the provided language
 
-### TransText component
+
+### < TransText > component
+
+> Renders a `<Text>` with the translated text.
 
 Prop  | Type | Required | Description | Default value
 ------|------|----------|-------------|--------------
 dictionary  | string for searching in the default translations object, or directly an object | Yes | The object or path to object containing translations | null
 values  | object { string : any } | No | Variables to inject in the text | { }
-> It can also take any prop a `<Text>` component can take.
 
+
+> It can also take any prop a `<Text>` component can take.
+>
 > This tab is also available for `<AnimatedTransText>`
 
-> Renders a `<Text>` with the translated text.
 
-### getTranslation function
+### getTranslation() function
+
+> Returns the text translated in the right language.
 
 Parameter  | Type | Required | Description
 -----------|------|----------|------------
 dictionary  | string for searching in the default translations object, or directly an object | Yes | The object or path to object containing translations
 values  | object { string : any } | No | Variables to inject in the text
 
-> Returns the text translated in the right language.
 
-### getTranslationWithLang function
+### getTranslationWithLang() function
+
+
+>Returns the text translated in the provided language.
 
 Parameter  | Type | Required | Description
 -----------|------|----------|------------
@@ -285,7 +367,24 @@ language  | string | Yes | The language for the translation
 dictionary  | string for searching in the default translations object, or directly an object | Yes | The object or path to object containing translations
 values  | object { string : any } | No | Variables to inject in the text
 
-> Returns the text translated in the provided language.
+### getRedirection() function
+
+> Returns the text translated data in the right language.
+
+Parameter  | Type | Required | Description
+-----------|------|----------|------------
+dictionary/redirector  | redirector object | Yes | The object associating data to languages  
+
+
+### getRedirectionWithLang() function
+
+> Returns the text translated data in the specified language.
+
+Parameter  | Type | Required | Description
+-----------|------|----------|------------
+language  | string | Yes | The language for the translation
+dictionary/redirector  | redirector object | Yes | The object associating data to languages  
+
 
 ## Contribution
 Since this project is open-source, pull requests are welcome.

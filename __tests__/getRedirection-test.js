@@ -117,7 +117,7 @@ describe('getRedirection normal use', () => {
 /*
 * Testing no dic
 */
-describe('getRedirection normal use', () => {
+describe('getRedirection with no dic', () => {
   it('Should render using getRedirection with undefined', () => {
     const wrapper = mount(
       <LanguageProvider language = {"fr-FR"}>
@@ -132,7 +132,7 @@ describe('getRedirection normal use', () => {
 /*
 * Testing wrong dic
 */
-describe('getRedirection normal use', () => {
+describe('getRedirection wrong dic', () => {
     it('Should render using getRedirection with undefined', () => {
       const wrapper = mount(
         <LanguageProvider language = {"fr-FR"}>
@@ -147,7 +147,7 @@ describe('getRedirection normal use', () => {
   /*
 * Testing wrong dic but default language found
 */
-describe('getRedirection normal use', () => {
+describe('getRedirection wrong dic but default language found', () => {
     it('Should render using getRedirection with default language', () => {
       const wrapper = mount(
         <LanguageProvider language = {"fr-FR"}>
@@ -162,8 +162,8 @@ describe('getRedirection normal use', () => {
     /*
 * Testing with undefined context
 */
-describe('getRedirection normal use', () => {
-    it('Should render using getRedirection with default language', () => {
+describe('getRedirection with undefined context', () => {
+    it('Should render using getRedirection with default language (no provider)', () => {
       const wrapper = mount(
           <TestClassNoContext/>
       )
@@ -176,7 +176,7 @@ describe('getRedirection normal use', () => {
 /*
 * Testing with lang
 */
-describe('getRedirection normal use', () => {
+describe('getRedirection with lang', () => {
   it('should get redirection on state', () => {
     const wrapper = mount(
         <WithLangtest/>
